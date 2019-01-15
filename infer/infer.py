@@ -4,18 +4,18 @@
 import os
 import sys
 import math
-import utils
 import random
 import numpy as np
 from tqdm import tqdm
 import tensorflow as tf
 from datetime import datetime
+slim = tf.contrib.slim
 
 sys.path.append('../')
 from preprocessing import preprocessing_factory
-
-slim = tf.contrib.slim
+import utils
 import model
+
 from PIL import Image
 import cPickle as pkl
 
