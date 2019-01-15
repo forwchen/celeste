@@ -1,7 +1,6 @@
 # Custom
 *.tfrecord
 *.csv
-*.pkl
 *.png
 *.jpg
 *.jpeg
