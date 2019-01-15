@@ -5,6 +5,7 @@
 
 
 import os
+import sys
 import math
 import utils
 import random
@@ -34,7 +35,7 @@ num_samples = num_classes * 1000
 # In[4]:
 
 
-def decode(serialized_example, frame_or_flow='flow'):
+def decode(serialized_example):
     features = tf.parse_single_example(serialized_example,features={
         'label':tf.FixedLenFeature([], tf.int64),
         'image_raw':tf.FixedLenFeature([], tf.string)

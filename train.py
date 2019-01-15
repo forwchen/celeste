@@ -13,19 +13,20 @@ from tqdm import tqdm
 import tensorflow as tf
 from datetime import datetime
 
-
-# In[2]:
-
-
 from preprocessing import preprocessing_factory
 slim = tf.contrib.slim
+import argparse
 
+parser = argparse.ArgumentParser(description='Process some integers.')
+parser.add_argument('--lr', type=float, help='init learning rate')
+
+args = parser.parse_args()
 
 # In[3]:
 utils.set_gpu(1)
 
 # tunable
-init_learning_rate = 0.001
+init_learning_rate = args.lr
 learning_rate_decay_factor = 0.5
 num_epochs_per_decay = 2
 weight_decay = 0.00004
@@ -40,7 +41,7 @@ num_samples_per_epoch = num_classes * 10000
 # In[4]:
 
 
-def decode(serialized_example, frame_or_flow='flow'):
+def decode(serialized_example):
     features = tf.parse_single_example(serialized_example,features={
         'label':tf.FixedLenFeature([], tf.int64),
         'image_raw':tf.FixedLenFeature([], tf.string)
