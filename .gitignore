@@ -9,6 +9,7 @@
 *.json
 *.ndjson
 
+log
 .ipynb_checkpoints
 
 # Byte-compiled / optimized / DLL files
