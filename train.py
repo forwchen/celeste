@@ -19,6 +19,7 @@ import argparse
 
 parser = argparse.ArgumentParser(description='Process some integers.')
 parser.add_argument('--lr', type=float, help='init learning rate')
+parser.add_argument('--model', type=str, help='choice of model')
 
 args = parser.parse_args()
 
@@ -28,7 +29,7 @@ utils.set_gpu(1)
 # tunable
 init_learning_rate = args.lr
 learning_rate_decay_factor = 0.5
-num_epochs_per_decay = 2
+num_epochs_per_decay = 5
 weight_decay = 0.00004
 
 # fixed
@@ -39,6 +40,9 @@ num_samples_per_epoch = num_classes * 10000
 
 
 # In[4]:
+data_dir = '/home/forwchen/daily/190114/tfrecords'
+files = tf.data.Dataset.list_files(data_dir+'/train-*.tfrecord').shuffle(100, seed=1234)
+
 
 
 def decode(serialized_example):
@@ -53,15 +57,12 @@ def decode(serialized_example):
 
     return image, label
 
-feat_dir = '/home/forwchen/daily/190114/tfrecords'
-files = tf.data.Dataset.list_files(feat_dir+'/train-*.tfrecord').shuffle(100, seed=1234)
-
 ds = files.apply(tf.contrib.data.parallel_interleave(
         tf.data.TFRecordDataset, cycle_length=8))
 ds = ds.map(decode, num_parallel_calls=16)
-ds = ds.apply(tf.contrib.data.shuffle_and_repeat(buffer_size=batch_size*10, seed=1234))
+ds = ds.apply(tf.contrib.data.shuffle_and_repeat(buffer_size=batch_size*16, seed=1234))
 ds = ds.apply(tf.contrib.data.batch_and_drop_remainder(batch_size))
-ds = ds.prefetch(buffer_size=batch_size * 4)
+ds = ds.prefetch(buffer_size=batch_size * 16)
 
 iterator = tf.data.Iterator.from_structure(ds.output_types,
                                            ds.output_shapes)
@@ -78,7 +79,7 @@ images_preped = image_prep_fn(images, None, None)
 print images, images_preped
 
 import model
-class_logits = model.build_net(images_preped, num_classes, True)
+class_logits = model.build_net(images_preped, num_classes, True, args.model)
 
 
 labels_oh = tf.one_hot(labels, num_classes, on_value=1., off_value=0., dtype=tf.float32)
@@ -137,11 +138,12 @@ train_dir = './log'
 model_id = datetime.now().strftime("%H%M%S")
 train_dir = os.path.join(train_dir, datetime.now().strftime("%Y%m%d"), model_id)
 if not os.path.exists(train_dir): os.makedirs(train_dir)
+print 'Logging to:', train_dir
 
 summary_writer = tf.summary.FileWriter(train_dir, flush_secs=30)
 merged_summ = tf.summary.merge_all()
 
-for iter_ in tqdm(range(100000)):
+for iter_ in tqdm(range(100000), ncols=64):
     fet = sess.run([merged_summ, global_step, train_op])
     summary_writer.add_summary(fet[0], fet[1])
     #print fet[-1]

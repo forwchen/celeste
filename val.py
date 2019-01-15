@@ -104,7 +104,7 @@ saver.restore(sess, sys.argv[1])
 hit = 0.
 tot = 0.
 
-for iter_ in tqdm(range(num_samples / batch_size)):
+for iter_ in tqdm(range(num_samples / batch_size), ncols=64):
     fet = sess.run([labels, preds])
     hit += (fet[0] == fet[1]).astype(np.float32).sum()
     tot += len(fet[0])
