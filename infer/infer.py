@@ -11,7 +11,9 @@ from tqdm import tqdm
 import tensorflow as tf
 from datetime import datetime
 
+sys.path.append('../')
 from preprocessing import preprocessing_factory
+
 slim = tf.contrib.slim
 import model
 from PIL import Image
