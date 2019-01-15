@@ -1,9 +1,6 @@
 # Custom
 *.tfrecord
 *.csv
-*.png
-*.jpg
-*.jpeg
 *.zip
 *.json
 *.ndjson
