@@ -21,8 +21,8 @@ def cfg_dict2tuple(d):
 def set_gpu(num_gpu):
     deviceIDs = GPUtil.getAvailable(order = 'first', limit = num_gpu, maxMemory = 0.2)
     if len(deviceIDs) < num_gpu:
-        print 'No enough GPU.'
-        sys.exit(0)
+        print 'Using CPU.'
+        return
     else:
         gpu_id = ','.join([str(d) for d in deviceIDs])
 
