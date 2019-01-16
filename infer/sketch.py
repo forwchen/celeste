@@ -29,9 +29,9 @@ def strokes_to_image_str(strokes_):
     image_draw = ImageDraw.Draw(image)
     for stroke in strokes:
         for i in range(len(stroke[0])-1):
-            image_draw.line([stroke[0][i], 
+            image_draw.line([stroke[0][i],
                              stroke[1][i],
-                             stroke[0][i+1], 
+                             stroke[0][i+1],
                              stroke[1][i+1]],
                              fill=0, width=5)
     img_size = 128
@@ -69,7 +69,7 @@ class Paint(QWidget):
 
                 painter.drawLine(point_start[0], point_start[1], point_end[0], point_end[1])
                 point_start = point_end
-        painter.end() 
+        painter.end()
 
     def mouseMoveEvent (self, event):
         pos_tmp = (event.pos().x(), event.pos().y())
@@ -86,14 +86,14 @@ class Paint(QWidget):
             self.pos_xy_simplified.append(simp)
 
         #detect the sketch
-        img = np.array(Image.open('bee.png'))
+        #img = np.array(Image.open('bee.png'))
         img = np.array(strokes_to_image_str(self.pos_xy_simplified))
         if(img.ndim != 0):
             print self.iu.infer(img,5)
 
         pos_test = (-1, -1)
         self.pos_xy.append(pos_test)
-        self.update() 
+        self.update()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
