@@ -31,6 +31,7 @@ init_learning_rate = args.lr
 learning_rate_decay_factor = 0.5
 num_epochs_per_decay = 5
 weight_decay = 0.00004
+train_iters = 100000
 
 # fixed
 batch_size = 512
@@ -143,7 +144,7 @@ print 'Logging to:', train_dir
 summary_writer = tf.summary.FileWriter(train_dir, flush_secs=30)
 merged_summ = tf.summary.merge_all()
 
-for iter_ in tqdm(range(100000), ncols=64):
+for iter_ in tqdm(range(train_iters), ncols=64):
     fet = sess.run([merged_summ, global_step, train_op])
     summary_writer.add_summary(fet[0], fet[1])
     #print fet[-1]

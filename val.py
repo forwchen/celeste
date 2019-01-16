@@ -21,6 +21,13 @@ from datetime import datetime
 from preprocessing import preprocessing_factory
 slim = tf.contrib.slim
 
+import argparse
+
+parser = argparse.ArgumentParser(description='Process some integers.')
+parser.add_argument('--model', type=str, help='choice of model')
+parser.add_argument('--ckpt', type=str, help='model checkpoint')
+
+args = parser.parse_args()
 
 # In[3]:
 utils.set_gpu(1)
@@ -72,7 +79,7 @@ images_preped = image_prep_fn(images, None, None)
 print images, images_preped
 
 import model
-class_logits = model.build_net(images_preped, num_classes, False)
+class_logits = model.build_net(images_preped, num_classes, False, args.model)
 
 class_probs = tf.nn.softmax(class_logits)
 
@@ -95,7 +102,7 @@ sess.run(training_init_op)
 # In[22]:
 
 
-saver.restore(sess, sys.argv[1])
+saver.restore(sess, args.ckpt)
 
 
 # In[23]:
