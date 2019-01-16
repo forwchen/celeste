@@ -3,7 +3,8 @@
 
 # In[1]:
 
-
+import sys
+sys.path.append('../../common')
 import os
 import math
 import utils

@@ -11,7 +11,7 @@ import tensorflow as tf
 from datetime import datetime
 slim = tf.contrib.slim
 
-sys.path.append('../')
+sys.path.append('../common')
 from preprocessing import preprocessing_factory
 import utils
 import model
@@ -31,7 +31,7 @@ class InferUtil(object):
         image_prep_fn = preprocessing_factory.get_preprocessing('inception_v1', is_training=False)
         images_preped = image_prep_fn(self.images, None, None)
 
-        class_logits = model.build_net(images_preped, num_classes, False)
+        class_logits = model.build_net(images_preped, num_classes, False, 'light')
 
         self.class_probs = tf.nn.softmax(class_logits)
         #preds = tf.argmax(class_probs, axis=-1)

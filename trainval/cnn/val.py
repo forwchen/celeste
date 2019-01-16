@@ -3,7 +3,8 @@
 
 # In[1]:
 
-
+import sys
+sys.apth.append('../../common')
 import os
 import sys
 import math
