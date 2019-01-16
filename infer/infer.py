@@ -3,6 +3,8 @@
 
 import os
 import sys
+import zmq
+import zlib
 import math
 import random
 import numpy as np
@@ -20,7 +22,7 @@ from PIL import Image
 import cPickle as pkl
 
 class InferUtil(object):
-    def __init__(self, model_ckpt):
+    def __init__(self, model_ckpt, serve=False):
 
         utils.set_gpu(1)
         num_classes = 340
@@ -46,6 +48,24 @@ class InferUtil(object):
         for k in cls_id_map:
             self.id_cls_map[cls_id_map[k]] = k
 
+        if serve:
+            self.start_serve()
+
+    def start_serve(self):
+        context = zmq.Context()
+        socket = context.socket(zmq.REP)
+        socket.bind("tcp://*:%s" % 10116)
+        while True:
+            #  Wait for next request from client
+            meta = socket.recv_json(flags=0)
+            data = socket.recv(flags=0, copy=True, track=False)
+            buf = buffer(data)
+            img = np.frombuffer(buf, dtype=meta['dtype']).reshape(meta['shape'])
+            ret = self.infer(img, 5)
+            print ret
+            p = pkl.dumps(ret, -1)
+            z = zlib.compress(p)
+            socket.send(z, flags=0)
 
     def infer(self, image, k):
         """
@@ -78,12 +98,16 @@ class InferUtil(object):
             ret.append([(prob[i], self.id_cls_map[i]) for i in idxs])
         return ret
 
+
+
+
+
 if __name__ == "__main__":
-    iu = InferUtil('./ckpt/model-99001')
+    iu = InferUtil('./ckpt/model-99001', True)
 
-    img = np.array(Image.open('bee.png'))
+    #img = np.array(Image.open('bee.png'))
 
-    print img.shape
+    #print img.shape
 
-    print iu.infer(img, 5)
+    #print iu.infer(img, 5)
 
