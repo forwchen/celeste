@@ -4,7 +4,7 @@
 # In[1]:
 
 import sys
-sys.path.append('../../common')
+sys.path.append('../common')
 import os
 import sys
 import math
@@ -14,7 +14,8 @@ import numpy as np
 from tqdm import tqdm
 import tensorflow as tf
 from datetime import datetime
-
+import cPickle as pkl
+import ipdb
 
 # In[2]:
 
@@ -25,7 +26,6 @@ slim = tf.contrib.slim
 import argparse
 
 parser = argparse.ArgumentParser(description='Process some integers.')
-parser.add_argument('--model', type=str, help='choice of model')
 parser.add_argument('--ckpt', type=str, help='model checkpoint')
 
 args = parser.parse_args()
@@ -79,8 +79,8 @@ image_prep_fn = preprocessing_factory.get_preprocessing('inception_v1', is_train
 images_preped = image_prep_fn(images, None, None)
 print images, images_preped
 
-import model
-class_logits = model.build_net(images_preped, num_classes, False, args.model)
+import fixed_model
+class_logits, feats = fixed_model.build_net(images_preped, num_classes, False)
 
 class_probs = tf.nn.softmax(class_logits)
 
@@ -108,15 +108,19 @@ saver.restore(sess, args.ckpt)
 
 # In[23]:
 
-
-hit = 0.
-tot = 0.
+features = {}
+cls_id = pkl.load(file('class_id_map.pkl', 'rb'))
+id_cls = {}
+for k in cls_id:
+    id_cls[cls_id[k]] = k
+    features[k] = []
 
 for iter_ in tqdm(range(num_samples / batch_size), ncols=64):
-    fet = sess.run([labels, preds])
-    hit += (fet[0] == fet[1]).astype(np.float32).sum()
-    tot += len(fet[0])
+    fet = sess.run([labels, preds, feats])
 
-print 'Hit @ Top-1:', hit/tot
+    for l, f in zip(fet[0], fet[2]):
+        features[id_cls[l]].append(f)
 
+
+pkl.dump(features, file('feats_all.pkl', 'wb'), 2)
 
