@@ -22,9 +22,6 @@ import cPickle as pkl
 class InferUtil(object):
     def __init__(self, model_ckpt):
 
-
-        utils.set_gpu(1)
-
         num_classes = 340
         image_size = 128
         self._is = image_size
