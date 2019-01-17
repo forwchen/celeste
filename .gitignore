@@ -5,6 +5,7 @@
 *.json
 *.ndjson
 
+debug.*
 log
 .ipynb_checkpoints
 
