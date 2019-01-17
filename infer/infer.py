@@ -197,13 +197,36 @@ class InferUtil(object):
             strokes = pkl.loads(p)
             img = strokes_to_img(strokes)
 
-            ret = self.infer(img, 5)
-            print ret
-            self.search(strokes, target)
+            print 'Top probs for incoming image:'
+            print  self.infer(img, 5)
+            #self.search(strokes, target)
+            ret = self.judge(strokes, target)
 
             p = pkl.dumps(ret, -1)
             z = zlib.compress(p)
             socket.send(z, flags=0)
+
+
+    def judge(self, strokes, target):
+        if len(strokes) <= 1:
+            return strokes
+        img = strokes_to_img(strokes[:-1])
+        target_id = self.cls_id_map[target]
+        feats, probs = self.ext(img)
+        prev_prob = probs[0][target_id]
+
+        img = strokes_to_img(strokes)
+        target_id = self.cls_id_map[target]
+        feats, probs = self.ext(img)
+        cur_prob = probs[0][target_id]
+        print target, prev_prob, cur_prob,
+
+        if cur_prob > prev_prob:
+            print 'better'
+            return strokes
+        else:
+            print 'roll back'
+            return strokes[:-1]
 
 
     def search(self, strokes, target):

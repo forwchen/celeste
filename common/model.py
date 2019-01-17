@@ -61,10 +61,8 @@ def build_gp(inputs, num_classes, training):
     net = tf.layers.max_pooling2d(net, (2,2), (2,2))
     net = tf.layers.conv2d(net, 128, (3,3), padding='same', activation=tf.nn.relu)
     net = tf.layers.max_pooling2d(net, (2,2), (2,2))
-    net = tf.layers.conv2d(net, 128, (3,3), padding='same', activation=tf.nn.relu)
+    net = tf.layers.conv2d(net, 256, (3,3), padding='same', activation=tf.nn.relu)
     net = tf.reduce_mean(net, [1, 2], name='global_pool')
-    net = tf.layers.dropout(net, rate=0.3, training=training)
-    net = tf.layers.dense(net, 1024, activation=tf.nn.relu)
     net = tf.layers.dropout(net, rate=0.5, training=training)
     net = tf.layers.dense(net, num_classes, activation=None)
 
