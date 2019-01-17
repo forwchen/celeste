@@ -2,3 +2,6 @@
 14 - 18 January, 2019
 
 Team Members: Minjun Li & Shaoxiang Chen
+
+
+More codes (ipython notebooks) are currently not merged, and are in branch dev-sxchen: https://github.com/forwchen/celeste/tree/dev-sxchen
