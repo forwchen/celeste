@@ -41,7 +41,7 @@ def strokes_to_image_str(strokes_):
 
 class Paint(QWidget):
 
-    def __init__(self, iu, iur):
+    def __init__(self, iu, iur = None):
         super(Paint, self).__init__()
         self.config_limitUserStroke = False
         self.config_limitRNNStroke = False
@@ -58,15 +58,15 @@ class Paint(QWidget):
         self.iu = iu
         self.iur = iur
         
-
-        self.slider = QSlider(Qt.Horizontal, self)
-        self.slider.setFocusPolicy(Qt.NoFocus)
-        self.slider.setGeometry(30, 40, 100, 30)
-        self.slider.valueChanged.connect(self.changeTemp)
-        
-        self.label = QLabel(self)
-        self.label.setText("Randomness")
-        self.label.setGeometry(160, 40, 100, 30)
+        #
+        # self.slider = QSlider(Qt.Horizontal, self)
+        # self.slider.setFocusPolicy(Qt.NoFocus)
+        # self.slider.setGeometry(30, 40, 100, 30)
+        # self.slider.valueChanged.connect(self.changeTemp)
+        #
+        # self.label = QLabel(self)
+        # self.label.setText("Randomness")
+        # self.label.setGeometry(160, 40, 100, 30)
         
         self.t = 0.8
 
@@ -197,15 +197,17 @@ class Paint(QWidget):
         pos_test = (-1, -1)
         self.pos_xy.append(pos_test)
         
+        print self.pos_xy
+        print self.pos_xy_simplified
+        
         #prefict the future
-        self.pos_xy_future = self.strokes_to_pos(iur.predict(self.pos_xy_simplified, self.t))
+        # self.pos_xy_future = self.strokes_to_pos(iur.predict(self.pos_xy_simplified, self.t))
 
         self.update()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     iu = InferUtil('./ckpt/classifier/model-99001')
-    iur = InferUtilSketchRNN()
-    pyqt_exe = Paint(iu, iur)
+    pyqt_exe = Paint(iu)
     pyqt_exe.show()
     app.exec_()
