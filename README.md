@@ -5,13 +5,13 @@ Team Members: Minjun Li & Shaoxiang Chen, Fudan University
 
 This project wins the final **Best Project Award**. Many thanks to Google and Tensorflow🌞!
 
-### Introduction
+### 1. Introduction
 We first explored training different models to recognize sketches in the Quick Draw dataset. We found that a hand-crafted CNN can be trained in a short time and achieve reasonable accuracy. 
 With a trained CNN, we are able to perform various interesting tasks, such as: **inter-class similarity analysis**, **CNN class activation map visualization for interpretability**, **definitive stroke analysis and visualization**, and finally, to **hint the players of Quick Draw** with our CNN and Sketch RNN. Technics from papers[1,2] are used in our work. 
 
 [Slides](https://drive.google.com/file/d/1C3Z2w02fp16IHedLa7EsprKt8JuVorvW/view?usp=sharing) (demo videos inside!) and [Poster](https://docs.google.com/presentation/d/1ZVL8tNfcQwmrQDrjD7xsQrK2Wicy3xOxWTGXVyQEUHI/edit?usp=sharing) are available in Google Drive.
 
-### About the Code
+### 2. About the Codes
 
 ```
 .   
@@ -69,16 +69,16 @@ With a trained CNN, we are able to perform various interesting tasks, such as: *
         └── train.py                            # training & validation script
 ```
 
-### Model Training
+### 3. Model Training
 
-We trained RNN and CNN to recognize sketches. While RNN can achieve higher accuracy, it needs a long time to train. So we hand-crafted a shallow CNN instead, and it reaches reasonable perormance in a short time.
+We trained RNN and CNN to recognize sketches. While RNN can achieve higher accuracy, it needs a long time to train. So we hand-crafted a shallow CNN instead, and it reaches reasonable perormance in a short time. Our objective is not to train a super accurate recognition model, but to explore and analysis the dataset with a goal of finding interesting insights that could help us (maybe) improve the Quick Draw game. 
 <div align="center">
   <img src="https://raw.githubusercontent.com/forwchen/celeste/master/pics/rnn%26cnn.png" height="256">
 </div>
 
-For training CNNs, we draw the strokes in images and resize them to 128x128. The CNN is trained with batch size 512, Adam optimizer with learning rate 0.001 and 100000 iterations. All our analysis is based on the trained CNN. 
+For training CNNs, we draw the strokes in images and resize them to 128x128. The CNN is trained with batch size 512, Adam optimizer with learning rate 0.001 and 100000 iterations. All our following analysis is based on the trained CNN. 
 
-### Inter-Class Similarity Analysis  
+### 4. Inter-Class Similarity Analysis  
 IPython Notebook [here](https://github.com/forwchen/celeste/blob/master/cluster/analysis.ipynb).
 
 To see if the CNN feature from the 'FC 512' layers captures inter-class similarity, we first do a t-SNE visualization.
@@ -100,7 +100,7 @@ For each class, the most similar class to them can be found [here](https://githu
   <img src="https://raw.githubusercontent.com/forwchen/celeste/master/pics/similar_pair.png" height="200">
 </div>
 
-### CNN Class Activation Map Visualization for Interpretability  
+### 5. CNN Class Activation Map Visualization for Interpretability  
 IPython Notebook [here](https://github.com/forwchen/celeste/blob/master/trainval/cnn/cnn_vis.ipynb).
 
 To understand why the CNN made such predictions, we use the technic from [1] to compute a CNN activation map for visualizing contributions from each spatial region. Below are samples for 'cookie', 'hospital' and 'cell phone'.
@@ -110,7 +110,7 @@ To understand why the CNN made such predictions, we use the technic from [1] to 
 
 
 
-### Definitive Stroke Analysis and Visualization  
+### 6. Definitive Stroke Analysis and Visualization  
 IPython Notebook [here](https://github.com/forwchen/celeste/blob/master/infer/best_stroke.ipynb).
 
 
