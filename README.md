@@ -113,6 +113,23 @@ It makes sense that the botton and some edges contribute the most in 'cell phone
 ### 6. Definitive Stroke Analysis and Visualization  
 IPython Notebook [here](https://github.com/forwchen/celeste/blob/master/infer/best_stroke.ipynb).
 
+We further want to analyze which stroke is the most effective one that pushes the model’s decision towards the target class. The approach is: for images in each class, add strokes one-by-one and keep track of the probability of target class as it changes.
+The definitive stroke is the one that gives the most significant probability increase. We visualize three pairs of most similiar classes and their corresponding definitive strokes.
+
+<div align="center">
+  <img src="https://raw.githubusercontent.com/forwchen/celeste/master/pics/definitive_strokes.png" height="300">
+</div>
+
+
+### 7. Demo 
+
+We wrote two demos in which the player gets hint about [whether a stroke is good or bad](https://drive.google.com/file/d/1jv_WZbZHxOoEaGJORDdoU_1CWrouw3J2/view?usp=sharing) and [Sketch RNN](https://drive.google.com/file/d/1ViyM119jvYC3MAWtsMO6aciA1kCVRT7U/view?usp=sharing). In both demos, the player is asked to draw a flamingo.  
+To know whether a stroke is good or bad, we track the probability of the desired class as the player is drawing. If the player's current stroke lowers that probability, it is retracted. 
+Sketch RNN[2](architecture below) is a sequence-to-sequence model for sketch generation. We only use the decoder part and at each time feed the player's strokes into the decoder so that the model outputs next strokes as hints to the player. 
+
+<div align="center">
+  <img src="https://raw.githubusercontent.com/forwchen/celeste/master/pics/sketch_rnn.png" height="256">
+</div>
 
 #### References
 [1] Zhou, Bolei, Aditya Khosla, Agata Lapedriza, Aude Oliva, and Antonio Torralba. "Learning deep features for discriminative localization." CVPR 2016.
