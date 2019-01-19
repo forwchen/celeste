@@ -6,8 +6,11 @@ Team Members: Minjun Li & Shaoxiang Chen, Fudan University
 This project wins the final **Best Project Award**. Many thanks to Google and Tensorflow🌞!
 
 ### 1. Introduction
-We first explored training different models to recognize sketches in the Quick Draw dataset. We found that a hand-crafted CNN can be trained in a short time and achieve reasonable accuracy. 
-With a trained CNN, we are able to perform various interesting tasks, such as: **inter-class similarity analysis**, **CNN class activation map visualization for interpretability**, **definitive stroke analysis and visualization**, and finally, to **hint the players of Quick Draw** with our CNN and Sketch RNN. Technics from papers[1,2] are used in our work. 
+Our project is mainly exploring the Quick Draw dataset and improving the Quick Draw game based on our findings. In the Quick Draw game, the player is asked to draw an object of a specified class with several sketches. Thus we first need a recognition model to classify sketches. However, our focus is not to train a super accurate model to recognize the drawings, but to perform interesting analysis based on our trained model which has reasonable performance. 
+We first explored training different models (including RNN & CNN) to recognize drawings in the Quick Draw dataset. We found that a hand-crafted CNN can be trained in a short time and achieve reasonable accuracy (~70% accuracy is enough to play the game).  
+With a trained CNN, we are able to perform various interesting analysis, such as: **inter-class similarity analysis** to find out which classes are easily mixed up with others (including t-SNE visualization and confusing pairs analysis), **CNN class activation map visualization for interpretability** of how the classification decision is made by the CNN, **definitive stroke analysis and visualization** which finds specific strokes that push the CNN’s prediction towards desired class.  
+Finally, based on our analysis, we try to make the Quick Draw game more interesting by hint the players of Quick Draw with (1) our CNN and (2) Sketch RNN. In (1), the player gets hints about whether the current stroke he/she draws makes the drawing more like the object of desired class. In (2), the player gets a direct hint from Sketch RNN about what the next stroke should be. 
+ Technics from papers[1,2] are used in our work. 
 
 [Slides](https://drive.google.com/file/d/1C3Z2w02fp16IHedLa7EsprKt8JuVorvW/view?usp=sharing) (demo videos inside!) and [Poster](https://docs.google.com/presentation/d/1ZVL8tNfcQwmrQDrjD7xsQrK2Wicy3xOxWTGXVyQEUHI/edit?usp=sharing) are available in Google Drive.
 
