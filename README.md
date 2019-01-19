@@ -69,6 +69,14 @@ With a trained CNN, we are able to perform various interesting tasks, such as: *
         └── train.py                            # training & validation script
 ```
 
+### Model Training
+
+We trained RNN and CNN to recognize sketches. While RNN can achieve higher accuracy, it needs a long time to train. So we hand-crafted a shallow CNN instead, and it reaches reasonable perormance in a short time.
+<div align="center">
+  <img src="https://raw.githubusercontent.com/forwchen/celeste/master/pics/rnn%26cnn.png"><br><br>
+</div>
+For training CNNs, we draw the strokes in images and resize them to 128x128. The CNN is trained with batch size 512, Adam optimizer with learning rate 0.001 and 100000 iterations. All our analysis is based on the trained CNN. 
+
 ### Inter-Class Similarity Analysis  
 IPython Notebook [here](https://github.com/forwchen/celeste/blob/master/cluster/analysis.ipynb).
 
