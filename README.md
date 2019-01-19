@@ -73,16 +73,42 @@ With a trained CNN, we are able to perform various interesting tasks, such as: *
 
 We trained RNN and CNN to recognize sketches. While RNN can achieve higher accuracy, it needs a long time to train. So we hand-crafted a shallow CNN instead, and it reaches reasonable perormance in a short time.
 <div align="center">
-  <img src="https://raw.githubusercontent.com/forwchen/celeste/master/pics/rnn%26cnn.png"><br><br>
+  <img src="https://raw.githubusercontent.com/forwchen/celeste/master/pics/rnn%26cnn.png">
 </div>
+
 For training CNNs, we draw the strokes in images and resize them to 128x128. The CNN is trained with batch size 512, Adam optimizer with learning rate 0.001 and 100000 iterations. All our analysis is based on the trained CNN. 
 
 ### Inter-Class Similarity Analysis  
 IPython Notebook [here](https://github.com/forwchen/celeste/blob/master/cluster/analysis.ipynb).
 
+To see if the CNN feature from the 'FC 512' layers captures inter-class similarity, we first do a t-SNE visualization.
+<div align="center">
+  <img src="https://raw.githubusercontent.com/forwchen/celeste/master/pics/t-sne_merge.png">
+</div>
+
+There are classes that form dense clusters as visualized, but some others scatter all over the space, which inidicates they could be very similar to other classes. 
+To find out the confusing classes, we sort the 340 classes by their similarity to all other classes in descending order. The top ones are:
+<div align="center">
+  <img src="https://raw.githubusercontent.com/forwchen/celeste/master/pics/similarity_top.png">
+</div>
+
+These classes all have very simple shape that is close to a rectangle. 
+See the full list [here](https://github.com/forwchen/celeste/blob/master/pics/class_similarity_heatmap.png). 
+
+For each class, the most similar class to them can be found [here](https://github.com/forwchen/celeste/blob/master/pics/most_similar.png). And some samples here.
+<div align="center">
+  <img src="https://raw.githubusercontent.com/forwchen/celeste/master/pics/similar_pair.png">
+</div>
 
 ### CNN Class Activation Map Visualization for Interpretability  
 IPython Notebook [here](https://github.com/forwchen/celeste/blob/master/trainval/cnn/cnn_vis.ipynb).
+
+To understand why the CNN made such predictions, we use the technic from [1] to compute a CNN activation map for visualizing contributions from each spatial region. Below are samples for 'cookie', 'hospital' and 'cell phone'.
+<div align="center">
+  <img src="https://raw.githubusercontent.com/forwchen/celeste/master/pics/cnn_activation_map.png">
+</div>
+
+
 
 ### Definitive Stroke Analysis and Visualization  
 IPython Notebook [here](https://github.com/forwchen/celeste/blob/master/infer/best_stroke.ipynb).
