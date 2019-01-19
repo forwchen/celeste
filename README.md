@@ -108,7 +108,7 @@ To understand why the CNN made such predictions, we use the technic from [1] to 
   <img src="https://raw.githubusercontent.com/forwchen/celeste/master/pics/cnn_activation_map.png" height="300">
 </div>
 
-
+It makes sense that the botton and some edges contribute the most in 'cell phone' images.
 
 ### 6. Definitive Stroke Analysis and Visualization  
 IPython Notebook [here](https://github.com/forwchen/celeste/blob/master/infer/best_stroke.ipynb).
