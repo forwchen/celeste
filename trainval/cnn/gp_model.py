@@ -1,6 +1,6 @@
 import tensorflow as tf
 
-
+# global pooling model for cnn activation map visualization
 def build_net(inputs, num_classes, training):
     net = tf.layers.conv2d(inputs, 64, (7,7), strides=(2,2), padding='same', activation=tf.nn.relu)
     net = tf.layers.max_pooling2d(net, (2,2), (2,2))
