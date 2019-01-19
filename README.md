@@ -3,15 +3,13 @@
 
 Team Members: Minjun Li & Shaoxiang Chen, Fudan University
 
-This project wins the final **Best Project Award**. 
+This project wins the final **Best Project Award**. Many thanks to Google and Tensorflow🌞!
 
 ### Introduction
 We first explored training different models to recognize sketches in the Quick Draw dataset. We found that a hand-crafted CNN can be trained in a short time and achieve reasonable accuracy. 
-With a trained CNN, we are able to perform various interesting tasks, such as: **inter-class similarity analysis**, **CNN class activation map visualization for interpretability**, **definitive stroke analysis and visualization**, and finally, to **hint the players of Quick Draw** with our CNN and Sketch RNN.
+With a trained CNN, we are able to perform various interesting tasks, such as: **inter-class similarity analysis**, **CNN class activation map visualization for interpretability**, **definitive stroke analysis and visualization**, and finally, to **hint the players of Quick Draw** with our CNN and Sketch RNN. Technics from papers[1,2] are used in our work. 
 
-Technics from papers[1,2] are used in our work.
-
-[Slides](https://drive.google.com/file/d/1C3Z2w02fp16IHedLa7EsprKt8JuVorvW/view?usp=sharing) and [Poster](https://docs.google.com/presentation/d/1ZVL8tNfcQwmrQDrjD7xsQrK2Wicy3xOxWTGXVyQEUHI/edit?usp=sharing) are available in Google Drive.
+[Slides](https://drive.google.com/file/d/1C3Z2w02fp16IHedLa7EsprKt8JuVorvW/view?usp=sharing) (demo videos inside!) and [Poster](https://docs.google.com/presentation/d/1ZVL8tNfcQwmrQDrjD7xsQrK2Wicy3xOxWTGXVyQEUHI/edit?usp=sharing) are available in Google Drive.
 
 ### About the Code
 
@@ -70,6 +68,17 @@ Technics from papers[1,2] are used in our work.
         ├── create_dataset.py                   # save raw strokes to tfrecord
         └── train.py                            # training & validation script
 ```
+
+### Inter-Class Similarity Analysis  
+IPython Notebook [here](https://github.com/forwchen/celeste/blob/master/cluster/analysis.ipynb).
+
+
+### CNN Class Activation Map Visualization for Interpretability  
+IPython Notebook [here](https://github.com/forwchen/celeste/blob/master/trainval/cnn/cnn_vis.ipynb).
+
+### Definitive Stroke Analysis and Visualization  
+IPython Notebook [here](https://github.com/forwchen/celeste/blob/master/infer/best_stroke.ipynb).
+
 
 #### References
 [1] Zhou, Bolei, Aditya Khosla, Agata Lapedriza, Aude Oliva, and Antonio Torralba. "Learning deep features for discriminative localization." CVPR 2016.
