@@ -71,6 +71,17 @@ Technics from papers[1,2] are used in our work.
         └── train.py                            # training & validation script
 ```
 
+### Inter-Class Similarity Analysis  
+IPython Notebook [here](https://github.com/forwchen/celeste/blob/master/cluster/analysis.ipynb).
+
+
+### CNN Class Activation Map Visualization for Interpretability  
+IPython Notebook [here](https://github.com/forwchen/celeste/blob/master/trainval/cnn/cnn_vis.ipynb).
+
+### Definitive Stroke Analysis and Visualization  
+IPython Notebook [here](https://github.com/forwchen/celeste/blob/master/infer/best_stroke.ipynb).
+
+
 #### References
 [1] Zhou, Bolei, Aditya Khosla, Agata Lapedriza, Aude Oliva, and Antonio Torralba. "Learning deep features for discriminative localization." CVPR 2016.
 
