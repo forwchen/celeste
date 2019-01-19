@@ -99,8 +99,8 @@ class InferUtil(object):
             self.id_cls_map[self.cls_id_map[k]] = k
 
         if serve:
-            self.vis = pkl.load(file('../../val_image_strokes.pkl', 'rb'))
             self.serve_hint()
+            #self.vis = pkl.load(file('../../val_image_strokes.pkl', 'rb'))
             #self.serve_play()
 
     def serve_play(self):
@@ -228,7 +228,9 @@ class InferUtil(object):
             print 'roll back'
             return strokes[:-1]
 
-
+    """
+    # naively searching for the best stroke that increases
+    # the probability of target class
     def search(self, strokes, target):
         img = strokes_to_img(strokes)
         target_id = self.cls_id_map[target]
@@ -273,19 +275,13 @@ class InferUtil(object):
                 max_i = i
         Image.fromarray(all_imgs[max_i]).save('debug.png')
         print 'achieving prob:', max_p
-        #save_img_debug(mst)
-
-
-
-
+    """
 
 
 if __name__ == "__main__":
-    iu = InferUtil('./ckpt/model-99001', True)
+    iu = InferUtil('./ckpt/classifier/model-99001', True)
 
-    #img = np.array(Image.open('bee.png'))
-
-    #print img.shape
-
-    #print iu.infer(img, 5)
+    img = np.array(Image.open('bee.png'))
+    print img.shape
+    print iu.infer(img, 5)
 
