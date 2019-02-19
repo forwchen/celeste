@@ -1,9 +1,11 @@
 ## Project of Team Celeste in Google AI ML Winter Camp Shanghai
 14 - 18 January, 2019
 
+Project Name: Hinted Quick Draw
+
 Team Members: Minjun Li & Shaoxiang Chen, Fudan University
 
-This project wins the final **Best Project Award**. Many thanks to Google and Tensorflow🌞!
+This project wins the final **[Best Project Award](https://sites.google.com/google.com/ml-camp/shanghai-site/winning-teams)**. Many thanks to Google and Tensorflow🌞!
 
 ### 1. Introduction
 Our project is mainly exploring the Quick Draw dataset and improving the Quick Draw game based on our findings. In the Quick Draw game, the player is asked to draw an object of a specified class with several sketches. Thus we first need a recognition model to classify sketches. However, our focus is not to train a super accurate model to recognize the drawings, but to perform interesting analysis based on our trained model which has reasonable performance. 
